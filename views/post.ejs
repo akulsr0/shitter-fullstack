@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <title>Post</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body bgcolor="#60a3bc">
+    <header class="dashboardHeader">
+      <div class="headerLeft">
+        <h3 class="headerUsername" onclick="gotoHome()"><%= user.name %></h3>
+      </div>
+      <div class="headerRight">
+        <form method="POST" action="/logout">
+          <button class="logoutButton">Logout</button>
+        </form>
+      </div>
+    </header>
+
+    <div class="post">
+      <div class="postAuthorInfoDiv">
+        <% if(post.authorGender=='Male') { %>
+        <img
+          src="https://banner2.cleanpng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg"
+          class="defaultDP"
+        />
+        <% } else { %>
+        <img
+          src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_female-512.png"
+          class="defaultDP"
+        />
+        <% } %>
+        <div style="display: flex; flex: 1; flex-direction: column">
+          <strong><%= post.authorName %></strong>
+          <small><%= post.authorEmail %></small>
+        </div>
+        <% if(post.authorEmail==user.email) { %>
+        <div style="display: flex; align-items: center; padding-right: 10px">
+          <form action="/posts/delete/<%=post._id%>" method="post">
+            <button class="postDeleteButton">Delete</button>
+          </form>
+        </div>
+        <% } %>
+        <div style="display: flex; align-items: center; padding-right: 10px ">
+          <% const dateArr = post.timestamp.toString().split(' ') %> <% const
+          dateStr = dateArr.slice(1,4).join(' ') %>
+          <strong><%= dateStr %></strong>
+        </div>
+      </div>
+      <div class="postTextDiv"><%= post.postText %></div>
+      <div class="postLikes">
+        <% const likes = post.likes %>
+        <strong>Liked By</strong>
+        <hr
+          size="0.05"
+          color="#333"
+          style="margin-top: 4px; margin-right: 10px"
+        />
+        <ul>
+          <% likes.map(liker => { %>
+          <li><%= liker.name %> (<%= liker.email %>)</li>
+          <% }) %>
+        </ul>
+      </div>
+      <div class="shitarea">
+        <strong>Shits on this</strong>
+        <hr
+          size="0.05"
+          color="#333"
+          style="margin-top: 4px; margin-bottom: 10px"
+        />
+        <% const shits = post.shits %> <% const latestShitsArray =
+        shits.reverse() %> <% latestShitsArray.map(shit => { %>
+        <div class="shit">
+          <div style="flex: 1;">
+            <strong><%=shit.author.name%></strong> <br />
+            <%=shit.shit%>
+          </div>
+          <div style="display: flex; align-items: center; padding-right: 10px">
+            <% if(user.id==shit.author._id) { %>
+            <form
+              action="/posts/<%=post._id%>/deleteshit/<%=shit._id%>"
+              method="post"
+            >
+              <button class="shitDeleteButton">Delete</button>
+            </form>
+            <% } %>
+          </div>
+        </div>
+        <% }) %>
+        <form action="/add/<%=post._id%>" method="post" style="width: 100%;">
+          <textarea name="shit" placeholder="Add some shit"></textarea>
+          <button class="addShitButton">SUBMIT</button>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script>
+    function gotoHome() {
+      window.location = '/';
+    }
+  </script>
+</html>

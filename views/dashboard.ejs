@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <title>Shitter</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body bgcolor="#60a3bc">
+    <header class="dashboardHeader">
+      <div class="headerLeft">
+        <h3 class="headerUsername" onclick="gotoHome()"><%= user.name %></h3>
+      </div>
+      <div class="headerRight">
+        <form method="POST" action="/logout">
+          <button class="logoutButton">Logout</button>
+        </form>
+      </div>
+    </header>
+    <div class="navDiv">
+      <a href="/">Home</a>
+      <a href="/find">Find People</a>
+      <a href="/posts/<%=user._id%>">Your Posts</a>
+      <a href="/profile">Edit Profile</a>
+    </div>
+    <center>
+      <hr size="0.01" color="#3c6382" width="60%" style="margin-top: 4px;" />
+      <div class="createPost">
+        <form action="/posts/add" method="post">
+          <textarea name="postText" placeholder="Your shit here"></textarea>
+          <br />
+          <button class="postButton">POST</button>
+        </form>
+      </div>
+    </center>
+    <div class="postsDiv">
+      <% posts.map(post => { %> <% if(post.authorId != user.id) { %>
+      <div class="post">
+        <div class="postAuthorInfoDiv">
+          <% if(post.authorGender=='Male') { %>
+          <img
+            src="https://banner2.cleanpng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg"
+            class="defaultDP"
+          />
+          <% } else { %>
+          <img
+            src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_female-512.png"
+            class="defaultDP"
+          />
+          <% } %>
+          <div style="display: flex; flex: 1; flex-direction: column">
+            <strong><%= post.authorName %></strong>
+            <small><%= post.authorEmail %></small>
+          </div>
+          <div style="display: flex; align-items: center; padding-right: 10px ">
+            <% const dateArr = post.timestamp.toString().split(' ') %> <% const
+            dateStr = dateArr.slice(1,4).join(' ') %>
+            <strong><%= dateStr %></strong>
+          </div>
+        </div>
+        <div class="postTextDiv"><%= post.postText %></div>
+        <div class="postInteractDiv">
+          <div style="display: flex; flex-direction: row">
+            <strong><%= post.likes.length %>&nbsp;&nbsp;&nbsp;</strong>
+            <form action="/like/<%= post.id %>" method="post">
+              <% const likes = post.likes %> <% let isAlreadyLiked = false %> <%
+              for(let like of likes) { %> <% if(like.email == user.email) { %>
+              <% isAlreadyLiked = true %> <% } %> <% } %> <% if(!isAlreadyLiked)
+              { %>
+              <button>Like</button>
+              <% } else { %>
+              <button>Liked</button>
+              <% } %>
+            </form>
+          </div>
+          <div>
+            <form action="/<%= post.id %>">
+              <button>Shit&nbsp;Here</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% } %> <% }) %>
+    </div>
+  </body>
+  <script>
+    function gotoHome() {
+      window.location = '/';
+    }
+  </script>
+</html>

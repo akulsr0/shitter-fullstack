@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Shitter</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap');
+      .lato {
+        font-family: 'Lato';
+      }
+      .welcomeText {
+        margin-top: 30px;
+        font-weight: 900;
+        color: #333;
+      }
+      .tagline {
+        color: #333;
+        margin-top: 30px;
+        font-size: 50px;
+        font-family: 'Lato';
+        font-weight: 300;
+        font-style: italic;
+      }
+      .loginContainer {
+        width: 500px;
+        margin-top: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 10px;
+        background-color: #82ccdd;
+      }
+      .messageViewText {
+        font-family: 'Lato';
+      }
+    </style>
+  </head>
+  <body bgcolor="#60a3bc">
+    <center>
+      <h1 class="welcomeText lato">Welcome to Shitter</h1>
+      <h1 class="tagline"><q>perfect place to shit</q></h1>
+      <div class="loginContainer">
+        <h2 class="messageViewText"><%= message %></h2>
+        <br />
+        <a href="/" style="text-decoration: none;">Home</a>
+        <br />
+      </div>
+    </center>
+  </body>
+</html>

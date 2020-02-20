@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Shitter</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body bgcolor="#60a3bc">
+    <center>
+      <h1 class="welcomeText lato">Welcome to Shitter</h1>
+      <h1 class="tagline"><q>perfect place to shit</q></h1>
+      <div class="loginContainer">
+        <h3 class="loginText lato">User Login</h3>
+        <br />
+        <form method="POST" action="/">
+          <input type="email" placeholder="Email" name="email" required />
+          <input type="password" placeholder="Password" name="password" />
+          <br />
+          <button class="submitbtn">Login</button>
+        </form>
+        <p class="hyperlinkRegister">
+          Don't have an account?
+          <strong onclick="gotoRegister()">Sign Up</strong>
+        </p>
+      </div>
+    </center>
+  </body>
+  <script>
+    function gotoRegister() {
+      window.location = '/register';
+    }
+  </script>
+</html>
