@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Find Users</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body bgcolor="#60a3bc">
+    <header class="dashboardHeader">
+      <div class="headerLeft">
+        <h3 class="headerUsername" onclick="gotoHome()">
+          <%= currentUser.name %>
+        </h3>
+      </div>
+      <div class="headerRight">
+        <form method="POST" action="/logout">
+          <button class="logoutButton">Logout</button>
+        </form>
+      </div>
+    </header>
+    <div class="navDiv">
+      <a href="/">Home</a>
+      <a href="/find">Find People</a>
+      <a href="/posts/<%=currentUser._id%>">Your Posts</a>
+      <a href="/profile">Edit Profile</a>
+    </div>
+    <center>
+      <hr size="0.01" color="#3c6382" width="60%" style="margin-top: 4px;" />
+    </center>
+    <br />
+    <% users.map(user => { %> <% if(user._id!=currentUser.id) { %>
+    <div class="user">
+      <% if(user.gender=='Male') { %>
+      <img
+        src="https://banner2.cleanpng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg"
+        class="defaultDP"
+      />
+      <% } else { %>
+      <img
+        src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_female-512.png"
+        class="defaultDP"
+      />
+      <% } %>
+      <div
+        style="display: flex; flex-direction: column; justify-content: center"
+      >
+        <strong><%= user.name %></strong>
+        <small><%= user.bio %></small>
+      </div>
+    </div>
+    <% } %> <% }) %>
+  </body>
+</html>

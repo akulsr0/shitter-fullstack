@@ -33,28 +33,32 @@
     <div class="postsDiv">
       <% posts.map(post => { %> <% if(post.authorId != user.id) { %>
       <div class="post">
-        <div class="postAuthorInfoDiv">
-          <% if(post.authorGender=='Male') { %>
-          <img
-            src="https://banner2.cleanpng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg"
-            class="defaultDP"
-          />
-          <% } else { %>
-          <img
-            src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_female-512.png"
-            class="defaultDP"
-          />
-          <% } %>
-          <div style="display: flex; flex: 1; flex-direction: column">
-            <strong><%= post.authorName %></strong>
-            <small><%= post.authorEmail %></small>
+        <a href="/post/<%=post._id%>">
+          <div class="postAuthorInfoDiv">
+            <% if(post.authorGender=='Male') { %>
+            <img
+              src="https://banner2.cleanpng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg"
+              class="defaultDP"
+            />
+            <% } else { %>
+            <img
+              src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_female-512.png"
+              class="defaultDP"
+            />
+            <% } %>
+            <div style="display: flex; flex: 1; flex-direction: column">
+              <strong><%= post.authorName %></strong>
+              <small><%= post.authorEmail %></small>
+            </div>
+            <div
+              style="display: flex; align-items: center; padding-right: 10px "
+            >
+              <% const dateArr = post.timestamp.toString().split(' ') %> <%
+              const dateStr = dateArr.slice(1,4).join(' ') %>
+              <strong><%= dateStr %></strong>
+            </div>
           </div>
-          <div style="display: flex; align-items: center; padding-right: 10px ">
-            <% const dateArr = post.timestamp.toString().split(' ') %> <% const
-            dateStr = dateArr.slice(1,4).join(' ') %>
-            <strong><%= dateStr %></strong>
-          </div>
-        </div>
+        </a>
         <div class="postTextDiv"><%= post.postText %></div>
         <div class="postInteractDiv">
           <div style="display: flex; flex-direction: row">

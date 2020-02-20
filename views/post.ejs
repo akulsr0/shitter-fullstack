@@ -1,7 +1,260 @@
 <html>
   <head>
     <title>Post</title>
-    <link rel="stylesheet" href="./css/styles.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap');
+      @import url('https://fonts.googleapis.com/css?family=Acme&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      a {
+        text-decoration: none;
+        color: unset;
+      }
+      .dashboardHeader {
+        width: 100%;
+        height: 40px;
+        background-color: #3c6382;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .headerLeft {
+        height: 40px;
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .headerRight {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-right: 20px;
+      }
+
+      .headerUsername {
+        font-weight: 700;
+        font-family: 'Lato';
+        color: #f5f5fa;
+        margin-left: 14px;
+        cursor: pointer;
+      }
+
+      .logoutButton {
+        width: 80px;
+        height: 30px;
+        background-color: #0a3d62;
+        border: none;
+        color: #f5f5fa;
+        border-radius: 6px;
+        font-family: 'Lato';
+        font-weight: 500;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .navDiv {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 16px;
+      }
+
+      .navDiv a {
+        text-decoration: none;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-family: 'Lato';
+        font-weight: 500;
+        color: #0a3d62;
+      }
+
+      textarea {
+        width: 60%;
+        height: 100px;
+        font-family: 'Lato';
+        font-weight: 300;
+        color: #333;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #0a3d62;
+        border-radius: 6px 6px 0px 0px;
+        outline: none;
+      }
+
+      .postButton {
+        width: 60%;
+        height: 30px;
+        background-color: #0a3d62;
+        border: none;
+        color: #f5f5fa;
+        border-radius: 0px 0px 6px 6px;
+        font-family: 'Lato';
+        font-weight: 500;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .createPost {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .postsDiv {
+        width: 100%;
+        height: 300px;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .post {
+        background-color: #fff;
+        margin-left: 20px;
+        margin-top: 10px;
+        margin-right: 40px;
+        font-family: 'Lato';
+        padding-bottom: 0px;
+        border-radius: 6px;
+      }
+
+      .defaultDP {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #333;
+        margin-right: 8px;
+      }
+
+      .postAuthorInfoDiv {
+        background-color: #dcdde1;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+        border-radius: 6px 6px 0px 0px;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .postTextDiv {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-family: 'Acme', cursive;
+        font-weight: 300;
+        font-size: 20px;
+        color: #353b48;
+      }
+
+      .postInteractDiv {
+        background-color: #f5f5fa;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .postInteractDiv div:not(:first-child) {
+        margin-left: 10px;
+      }
+
+      .postInteractDiv button {
+        padding: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #0a3d62;
+        border: none;
+        color: #f5f5fa;
+        font-family: 'Lato';
+        font-weight: 700;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .postLikes {
+        max-height: 200px;
+
+        overflow-y: scroll;
+        padding-left: 10px;
+        padding-top: 4px;
+      }
+
+      .postLikes ul {
+        margin-top: 6px;
+      }
+
+      .postLikes ul li {
+        margin-bottom: 4px;
+      }
+
+      .postLikes strong {
+        font-size: 20px;
+        font-weight: 900;
+      }
+
+      .shitarea {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 4px;
+        padding-bottom: 10px;
+      }
+
+      .shitarea strong {
+        font-size: 20px;
+        font-weight: 900;
+      }
+
+      .shitarea textarea {
+        width: 100%;
+        height: 100px;
+        font-family: 'Lato';
+        font-weight: 300;
+        color: #333;
+        padding: 6px;
+        font-size: 16px;
+        border: 1px solid #0a3d62;
+        border-radius: 6px 6px 0px 0px;
+        outline: none;
+      }
+
+      .addShitButton {
+        width: 100%;
+        height: 30px;
+        background-color: #0a3d62;
+        border: none;
+        color: #f5f5fa;
+        border-radius: 0px 0px 6px 6px;
+        font-family: 'Lato';
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .postDeleteButton {
+        background-color: red;
+        color: #f5f5fa;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 30px;
+        font-weight: 500;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body bgcolor="#60a3bc">
     <header class="dashboardHeader">
@@ -14,7 +267,6 @@
         </form>
       </div>
     </header>
-
     <div class="post">
       <div class="postAuthorInfoDiv">
         <% if(post.authorGender=='Male') { %>

@@ -42,8 +42,17 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/find', (req, res) => {
-  res.send('Find');
+router.get('/find', async (req, res) => {
+  try {
+    const tokenCookie = req.headers.cookie;
+    const token = tokenCookie.split('=')[1];
+    const decoded = jwt.verify(token, config.get('JWT_SECRET'));
+    const currentUser = await User.findById(decoded.id).select('-password');
+    const users = await User.find({});
+    res.render('find', { currentUser, users });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 router.get('/profile', (req, res) => {
@@ -79,24 +88,9 @@ router.post('/like/:pid', async (req, res) => {
       await post.save();
     }
 
-    res.redirect('/');
+    res.redirect(req.get('referer'));
   } catch (error) {
     console.log(error);
-    res.json(error);
-  }
-});
-
-router.get('/:pid', async (req, res) => {
-  try {
-    const tokenCookie = req.headers.cookie;
-    const token = tokenCookie.split('=')[1];
-    const decoded = jwt.verify(token, config.get('JWT_SECRET'));
-    const user = await User.findById(decoded.id).select('-password');
-
-    const post = await Post.findById(req.params.pid);
-
-    res.render('post', { post, user });
-  } catch (error) {
     res.json(error);
   }
 });
@@ -120,6 +114,21 @@ router.post('/add/:pid', async (req, res) => {
     await post.save();
 
     res.redirect('/' + pid);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.get('/post/:pid', async (req, res) => {
+  try {
+    const tokenCookie = req.headers.cookie;
+    const token = tokenCookie.split('=')[1];
+    const decoded = jwt.verify(token, config.get('JWT_SECRET'));
+    const user = await User.findById(decoded.id).select('-password');
+
+    const post = await Post.findById(req.params.pid);
+
+    res.render('post', { post, user });
   } catch (error) {
     res.json(error);
   }

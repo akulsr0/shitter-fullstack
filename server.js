@@ -12,8 +12,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/views'));
 
 app.use('/', require('./routes/index'));
-app.use('/posts', require('./routes/posts'));
 app.use('/register', require('./routes/register'));
+app.use('/posts', require('./routes/posts'));
 app.use('/logout', require('./routes/logout'));
 
 app.listen(port, () => {

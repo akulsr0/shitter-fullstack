@@ -6,14 +6,18 @@ const config = require('config');
 const User = require('../models/User');
 
 router.get('/', async (req, res) => {
-  const tokenCookie = req.headers.cookie;
-  if (tokenCookie != undefined) {
-    const token = tokenCookie.split('=')[1];
-    const decoded = jwt.verify(token, config.get('JWT_SECRET'));
-    const user = await User.findById(decoded.id);
-    return res.redirect('/');
+  try {
+    const tokenCookie = req.headers.cookie;
+    if (tokenCookie != undefined) {
+      const token = tokenCookie.split('=')[1];
+      const decoded = jwt.verify(token, config.get('JWT_SECRET'));
+      const user = await User.findById(decoded.id);
+      return res.redirect('/');
+    }
+    res.render('register');
+  } catch (error) {
+    res.json(error);
   }
-  res.render('register');
 });
 
 router.post('/', async (req, res) => {
@@ -36,6 +40,7 @@ router.post('/', async (req, res) => {
     await user.save();
     res.render('message', { message: 'Account created successfully' });
   } catch (err) {
+    console.log(err);
     res.json({ err });
   }
 });

@@ -51,4 +51,31 @@ router.post('/:pid/deleteshit/:shitid', async (req, res) => {
   }
 });
 
+router.get('/:uid', async (req, res) => {
+  try {
+    const uid = req.params.uid;
+    const user = await User.findById(uid);
+    const allPosts = await Post.find({});
+    const posts = allPosts.filter(post => post.authorId === uid);
+    res.render('posts', { user, posts });
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.post('/delete/:pid', async (req, res) => {
+  try {
+    const pid = req.params.pid;
+    await Post.findByIdAndDelete(pid);
+
+    const tokenCookie = req.headers.cookie;
+    const token = tokenCookie.split('=')[1];
+    const decoded = jwt.verify(token, config.get('JWT_SECRET'));
+
+    res.redirect('/posts/' + decoded.id);
+  } catch (error) {
+    res.error(error);
+  }
+});
+
 module.exports = router;
