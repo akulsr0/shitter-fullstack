@@ -21,4 +21,19 @@ router.get('/:uid', async (req, res) => {
   }
 });
 
+router.post('/self/edit', async (req, res) => {
+  try {
+    const { email, bio, country } = req.body;
+
+    const tokenCookie = req.headers.cookie;
+    const token = tokenCookie.split('=')[1];
+    const decoded = jwt.verify(token, config.get('JWT_SECRET'));
+    const currentUser = await User.findById(decoded.id).select('-password');
+
+    await User.update({ _id: currentUser.id }, { email, bio, country });
+
+    res.redirect('/user/' + currentUser.id);
+  } catch (error) {}
+});
+
 module.exports = router;

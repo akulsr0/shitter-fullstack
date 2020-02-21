@@ -13,6 +13,9 @@ router.post('/add', async (req, res) => {
       const decoded = jwt.verify(token, config.get('JWT_SECRET'));
       const user = await User.findById(decoded.id).select('-password');
       const { postText } = req.body;
+      if (postText === '') {
+        return res.render('message', { message: "Shit can't be empty." });
+      }
       const uid = user.id;
       const { name, email, gender } = user;
       const post = new Post({

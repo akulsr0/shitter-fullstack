@@ -48,8 +48,14 @@ router.get('/find', async (req, res) => {
     const token = tokenCookie.split('=')[1];
     const decoded = jwt.verify(token, config.get('JWT_SECRET'));
     const currentUser = await User.findById(decoded.id).select('-password');
-    const users = await User.find({});
-    res.render('find', { currentUser, users });
+    if (req.query.name) {
+      const regex = new RegExp(escapeRegex(req.query.name), 'gi');
+      const users = await User.find({ name: regex });
+      res.render('find', { currentUser, users });
+    } else {
+      const users = await User.find({});
+      res.render('find', { currentUser, users });
+    }
   } catch (error) {
     res.json(error);
   }
@@ -133,5 +139,9 @@ router.get('/post/:pid', async (req, res) => {
     res.json(error);
   }
 });
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
 
 module.exports = router;

@@ -426,3 +426,31 @@ textarea {
     display: flex;
     flex-direction: row;
 }
+
+.searchUserForm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchUserForm input {
+    width: 60%;
+    height: 40px;
+    font-size: 16px;
+}
+
+.searchUserForm button {
+    background-color: #0a3d62;
+    color: #f5f5fa;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-left: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
