@@ -1,4 +1,4 @@
 {
-    "DB_URL": "mongodb://localhost:27017/shitter",
+    "DB_URL": "mongodb+srv://shitter:nFe7GTVV8aTtm6Q1@cluster0-t00im.mongodb.net/test?retryWrites=true&w=majority",
     "JWT_SECRET": "supershittysecret"
 }
