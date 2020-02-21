@@ -13,6 +13,7 @@ app.use(express.static(__dirname + '/views'));
 
 app.use('/', require('./routes/index'));
 app.use('/register', require('./routes/register'));
+app.use('/user', require('./routes/user'));
 app.use('/posts', require('./routes/posts'));
 app.use('/logout', require('./routes/logout'));
 

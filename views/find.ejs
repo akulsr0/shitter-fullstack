@@ -27,25 +27,27 @@
     </center>
     <br />
     <% users.map(user => { %> <% if(user._id!=currentUser.id) { %>
-    <div class="user">
-      <% if(user.gender=='Male') { %>
-      <img
-        src="https://banner2.cleanpng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg"
-        class="defaultDP"
-      />
-      <% } else { %>
-      <img
-        src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_female-512.png"
-        class="defaultDP"
-      />
-      <% } %>
-      <div
-        style="display: flex; flex-direction: column; justify-content: center"
-      >
-        <strong><%= user.name %></strong>
-        <small><%= user.bio %></small>
+    <a href="/user/<%=user._id%>">
+      <div class="user">
+        <% if(user.gender=='Male') { %>
+        <img
+          src="https://banner2.cleanpng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg"
+          class="defaultDP"
+        />
+        <% } else { %>
+        <img
+          src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_female-512.png"
+          class="defaultDP"
+        />
+        <% } %>
+        <div
+          style="display: flex; flex-direction: column; justify-content: center"
+        >
+          <strong><%= user.name %></strong>
+          <small><%= user.bio %></small>
+        </div>
       </div>
-    </div>
+    </a>
     <% } %> <% }) %>
   </body>
 </html>

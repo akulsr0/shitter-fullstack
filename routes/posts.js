@@ -45,7 +45,7 @@ router.post('/:pid/deleteshit/:shitid', async (req, res) => {
     }
     post.shits = newShits;
     await post.save();
-    res.redirect('/' + pid);
+    res.redirect('/post/' + pid);
   } catch (error) {
     res.json(error);
   }

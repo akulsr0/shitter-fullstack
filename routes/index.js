@@ -113,7 +113,7 @@ router.post('/add/:pid', async (req, res) => {
     post.shits.push(newShit);
     await post.save();
 
-    res.redirect('/' + pid);
+    res.redirect('/post/' + pid);
   } catch (error) {
     res.json(error);
   }

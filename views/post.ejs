@@ -229,6 +229,19 @@
         outline: none;
       }
 
+      .shit {
+        max-height: 400px;
+        margin-bottom: 10px;
+        font-family: 'Acme';
+        display: flex;
+        flex-direction: row;
+      }
+
+      .shit strong {
+        font-family: 'Lato';
+        font-size: 16px;
+      }
+
       .addShitButton {
         width: 100%;
         height: 30px;
@@ -250,6 +263,19 @@
         height: 30px;
         font-weight: 500;
         font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .shitDeleteButton {
+        background-color: red;
+        color: #f5f5fa;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 20px;
+        font-weight: 500;
+        font-size: 14px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
@@ -319,8 +345,7 @@
           color="#333"
           style="margin-top: 4px; margin-bottom: 10px"
         />
-        <% const shits = post.shits %> <% const latestShitsArray =
-        shits.reverse() %> <% latestShitsArray.map(shit => { %>
+        <% const shits = post.shits %><% shits.map(shit => { %>
         <div class="shit">
           <div style="flex: 1;">
             <strong><%=shit.author.name%></strong> <br />
