@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>Friend Requests</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+  </head>
+  <body bgcolor="#60a3bc">
+    <header class="dashboardHeader">
+      <div class="headerLeft">
+        <h3 class="headerUsername" onclick="gotoHome()"><%= user.name %></h3>
+      </div>
+      <div class="headerRight">
+        <% const freqs = user.friendrequests %> <% const msgs = user.messages %>
+        <a href="/friend-requests" style="margin-left: 10px;">
+          <div>
+            <strong style="font-family: 'Lato'; color:white; font-weight: 400"
+              >(<%=freqs.length%>)&nbsp;Requests</strong
+            >
+          </div>
+        </a>
+        <a href="/messages" style="margin-left: 10px; margin-right: 20px">
+          <div>
+            <strong style="font-family: 'Lato'; color:white; font-weight: 400"
+              >(<%=msgs.length%>)&nbsp;Messages</strong
+            >
+          </div>
+        </a>
+        <form method="POST" action="/logout">
+          <button class="logoutButton">Logout</button>
+        </form>
+      </div>
+    </header>
+    <div class="navDiv">
+      <a href="/">Home</a>
+      <a href="/find">Find People</a>
+      <a href="/posts/<%=user._id%>">Your Posts</a>
+      <a href="/user/<%=user._id%>">Edit Profile</a>
+    </div>
+    <center>
+      <hr size="0.01" color="#3c6382" width="60%" style="margin-top: 4px;" />
+    </center>
+    <br />
+    <% for(let freq of freqs) { %>
+    <div class="user" style="margin-left: 20px; margin-right: 20px">
+      <% if(freq.gender=='Male') { %>
+      <img
+        src="https://banner2.cleanpng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg"
+        class="defaultDP"
+      />
+      <% } else { %>
+      <img
+        src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_female-512.png"
+        class="defaultDP"
+      />
+      <% } %>
+      <div
+        style="display: flex; flex: 1; flex-direction: column; justify-content: center"
+      >
+        <strong><%= freq.name %></strong>
+        <small><%= freq.email %></small>
+      </div>
+      <div class="userAction">
+        <form action="/friend-requests/<%=freq.id%>/accept" method="post">
+          <button>Accept</button>
+        </form>
+        <form action="/friend-requests/<%=freq.id%>/decline" method="post">
+          <button>Decline</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
+  </body>
+</html>

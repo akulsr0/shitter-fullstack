@@ -12,6 +12,22 @@
         </h3>
       </div>
       <div class="headerRight">
+        <% const freqs = currentUser.friendrequests %> <% const msgs =
+        currentUser.messages %>
+        <a href="/friend-requests" style="margin-left: 10px;">
+          <div>
+            <strong style="font-family: 'Lato'; color:white; font-weight: 400"
+              >(<%=freqs.length%>)&nbsp;Requests</strong
+            >
+          </div>
+        </a>
+        <a href="/messages" style="margin-left: 10px; margin-right: 20px">
+          <div>
+            <strong style="font-family: 'Lato'; color:white; font-weight: 400"
+              >(<%=msgs.length%>)&nbsp;Messages</strong
+            >
+          </div>
+        </a>
         <form method="POST" action="/logout">
           <button class="logoutButton">Logout</button>
         </form>
@@ -49,13 +65,50 @@
         />
         <% } %>
         <div
-          style="display: flex; flex-direction: column; justify-content: center"
+          style="display: flex; flex: 1; flex-direction: column; justify-content: center"
         >
           <strong><%= user.name %></strong>
           <small><%= user.bio %></small>
+        </div>
+        <div class="userAction">
+          <% const userfreqs = user.friendrequests %> <% let reqAlreadySent =
+          false %> <% for(let freq of userfreqs) { %> <% if(freq.id ==
+          currentUser.id) { %> <% reqAlreadySent = true %> <% } %> <% } %> <%
+          if(!reqAlreadySent) { %> <% let isFriend = false %> <% const
+          currentUserFriends = currentUser.friends %> <% for(let f of
+          currentUserFriends) { %> <% if(f._id==user.id) isFriend = true %> <% }
+          %> <% if(isFriend) { %>
+          <form action="/friends/<%=user._id%>/remove" method="post">
+            <button>Friends</button>
+          </form>
+          <% } else { %>
+          <form action="/user/<%=user._id%>/add" method="post">
+            <button>Add</button>
+          </form>
+          <% } %> <% } else { %> <% let isFriend = false %> <% const
+          currentUserFriends = currentUser.friends %> <% for(let f of
+          currentUserFriends) { %> <% if(f._id==user.id) isFriend = true %> <% }
+          %> <% if(isFriend) { %>
+          <form action="/friends/<%=user._id%>/remove" method="post">
+            <button>Friends</button>
+          </form>
+          <% } else { %>
+          <form action="/user/<%=user._id%>/cancel" method="post">
+            <button>Sent</button>
+          </form>
+          <% } %> <% } %>
+
+          <form action="/user/<%=user._id%>/chat" method="get">
+            <button>Message</button>
+          </form>
         </div>
       </div>
     </a>
     <% } %> <% }) %>
   </body>
+  <script>
+    function gotoHome() {
+      window.location = '/';
+    }
+  </script>
 </html>

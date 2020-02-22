@@ -140,6 +140,57 @@ router.get('/post/:pid', async (req, res) => {
   }
 });
 
+router.get('/friend-requests', async (req, res) => {
+  try {
+    const tokenCookie = req.headers.cookie;
+    const token = tokenCookie.split('=')[1];
+    const decoded = jwt.verify(token, config.get('JWT_SECRET'));
+    const user = await User.findById(decoded.id).select('-password');
+    res.render('friendrequests', { user });
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.post('/friend-requests/:uid/accept', async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const user = await User.findById(uid).select(
+      '-password -friendrequests -friends -messages'
+    );
+    const tokenCookie = req.headers.cookie;
+    const token = tokenCookie.split('=')[1];
+    const decoded = jwt.verify(token, config.get('JWT_SECRET'));
+    const currentUser = await User.findById(decoded.id).select(
+      '-password -friends -messages'
+    );
+    const freqs = currentUser.friendrequests;
+    let reqCheck = false;
+    for (let freq of freqs) {
+      if (freq.id == uid) {
+        reqCheck = true;
+      }
+    }
+    if (reqCheck) {
+      const _cuser = await User.findById(decoded.id).select(
+        '-password -friendrequests -friends -messages'
+      );
+      const $cuser = await User.findById(decoded.id);
+      const $user = await User.findById(uid);
+      const newfreqs = freqs.filter(x => x.id != uid);
+      $user.friends.push(_cuser);
+      $cuser.friends.push(user);
+      $cuser.friendrequests = newfreqs;
+      await $user.save();
+      await $cuser.save();
+    }
+    res.redirect('back');
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
+});
+
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }

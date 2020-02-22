@@ -10,6 +10,21 @@
         <h3 class="headerUsername" onclick="gotoHome()"><%= user.name %></h3>
       </div>
       <div class="headerRight">
+        <% const freqs = user.friendrequests %> <% const msgs = user.messages %>
+        <a href="/friend-requests" style="margin-left: 10px;">
+          <div>
+            <strong style="font-family: 'Lato'; color:white; font-weight: 400"
+              >(<%=freqs.length%>)&nbsp;Requests</strong
+            >
+          </div>
+        </a>
+        <a href="/messages" style="margin-left: 10px; margin-right: 20px">
+          <div>
+            <strong style="font-family: 'Lato'; color:white; font-weight: 400"
+              >(<%=msgs.length%>)&nbsp;Messages</strong
+            >
+          </div>
+        </a>
         <form method="POST" action="/logout">
           <button class="logoutButton">Logout</button>
         </form>
