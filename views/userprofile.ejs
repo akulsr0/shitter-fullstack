@@ -172,7 +172,7 @@
       }
     </style>
   </head>
-  <body bgcolor="#60a3bc">
+  <body bgcolor="#dfe4ea">
     <header class="dashboardHeader">
       <div class="headerLeft">
         <h3 class="headerUsername" onclick="gotoHome()">
@@ -204,6 +204,7 @@
     <div class="navDiv">
       <a href="/">Home</a>
       <a href="/find">Find People</a>
+      <a href="/friends">Friends</a>
       <a href="/posts/<%=currentUser._id%>">Your Posts</a>
       <a href="/user/<%=currentUser._id%>">Edit Profile</a>
     </div>
@@ -233,15 +234,29 @@
             <% const freqs = user.friendrequests %> <% let reqAlreadySent =
             false %> <% for(let freq of freqs) { %> <% if(freq.id ==
             currentUser.id) { %> <% reqAlreadySent = true %> <% } %> <% } %> <%
-            if(!reqAlreadySent) { %>
+            if(!reqAlreadySent) { %> <% let isFriend = false %> <% const
+            currentUserFriends = currentUser.friends %> <% for(let f of
+            currentUserFriends) { %> <% if(f._id==user.id) isFriend = true %> <%
+            } %> <% if(isFriend) { %>
+            <form action="/friends/<%=user._id%>/remove" method="post">
+              <button class="actionButton">Friends</button>
+            </form>
+            <% } else { %>
             <form action="/user/<%=user._id%>/add" method="post">
-              <button class="actionButton">Add Friend</button>
+              <button class="actionButton">Add</button>
+            </form>
+            <% } %> <% } else { %> <% let isFriend = false %> <% const
+            currentUserFriends = currentUser.friends %> <% for(let f of
+            currentUserFriends) { %> <% if(f._id==user.id) isFriend = true %> <%
+            } %> <% if(isFriend) { %>
+            <form action="/friends/<%=user._id%>/remove" method="post">
+              <button class="actionButton">Friends</button>
             </form>
             <% } else { %>
             <form action="/user/<%=user._id%>/cancel" method="post">
               <button class="actionButton">Cancel Request</button>
             </form>
-            <% } %>
+            <% } %> <% } %>
 
             <form action="" method="post">
               <button class="actionButton">Message</button>

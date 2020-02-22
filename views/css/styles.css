@@ -256,6 +256,7 @@ textarea {
     font-family: 'Lato';
     padding-bottom: 0px;
     border-radius: 6px;
+    border: 1px solid #0a3d62;
 }
 
 .defaultDP {
@@ -416,10 +417,11 @@ textarea {
 .user {
     margin-left: 10px;
     margin-right: 10px;
-    margin-top: 6px;
+    margin-top: 10px;
     background-color: #f1f2f6;
     font-family: 'Lato';
     padding-top: 6px;
+    border: 1px solid #0a3d62;
     padding-bottom: 6px;
     padding-left: 8px;
     border-radius: 10px;
@@ -476,4 +478,16 @@ textarea {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.friendsDiv {
+    margin-top: 10px;
+    padding-right: 20px;
+}
+
+.friendsDiv h2 {
+    font-family: 'Lato';
+    font-weight: 700;
+    color: #333;
+    margin-left: 20px;
 }
