@@ -1,5 +1,5 @@
 {
     "DB_LOCAL": "mongodb://localhost:27017/shitter",
-    "DB_URL": "mongodb+srv://shitter:nFe7GTVV8aTtm6Q1@cluster0-t00im.mongodb.net/test?retryWrites=true&w=majority",
+    "DB_URL": "your_db_url_here",
     "JWT_SECRET": "supershittysecret"
 }
